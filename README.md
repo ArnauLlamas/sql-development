@@ -25,7 +25,7 @@ Whole project is designed for and tested on a Linux system, although there are h
 
 ## How to use this project
 
-If you want to use this project without having to install any extra software aside of the ones specified in the requirements section on your system you can use VS Code along with the **Remote - Containers** (ID *ms-vscode-remote.remote-containers*) extension. After opening the project in VS Code and having the extension installed you should see a popup to reopen the project in a container, proceed with that to create a **development container** with all needed tools.
+If you want to use this project without having to install any extra software aside of the ones specified in the requirements section on your system you can use VS Code along with the **Remote - Containers** (ID *ms-vscode-remote.remote-containers*) extension. After cloning and opening the project in VS Code and having the extension installed you should see a notification from VS Code to reopen the project in a container, proceed with that to create a **development container** with all needed tools.
 
 Once in the development container you will be able to create, stop and destroy different sql database engines and connect to them easily, it also comes with the **SQLTools** (ID *mtxr.sqltools*) extension to interact with these databases and a configuration to automatically access them. Whole project is also designed to interact with it through the Makefile. Type `make` or `make help` on the VS Code terminal to see all available options or start right directly typing `make start` to create a MySQL and Postgres instance.
 
@@ -35,7 +35,8 @@ If you prefer to use your own database client instead of the SQLTools extension 
 
 Either if you use another database client or you are just curious about it, these are the connections settings for the databases you instantiate.
 
-* Host: Engine name (such as **mysql** or **postgres**)
+* Host: Engine name (such as **mysql** or **postgres**) from inside the development container, localhost outside of it 
+* Port: default of the engine (3306 for MySQL, 5432 for Postgres)
 * User: root
 * Password: secret
 * Database: test_db
