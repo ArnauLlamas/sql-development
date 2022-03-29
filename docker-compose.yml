@@ -3,6 +3,7 @@ version: '3.8'
 services:
   development:
     container_name: "sql_development"
+    image: "sql_development"
     privileged: true
     build:
       context: .

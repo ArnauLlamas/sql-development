@@ -44,5 +44,10 @@ stop: ##@General Stops all Database containers
 	@make -s stop-mysql && make -s stop-postgres
 data: ##@General Deletes all Database data
 	@make -s data-mysql && make -s data-postgres
-terminate: ##@General Deletes all containers and configuration to start from fresh
-	@docker-compose down --remove-orphans --rmi all --volumes
+terminate: ##@General Deletes all containers and data to start from fresh (should be run from your system and not from inside the development container)
+	@docker-compose down --remove-orphans --rmi all --volumes || { \
+	docker rm --force mysql postgres && \
+	docker volume rm mydata pgdata && \
+	docker rm --force sql_development && \
+	docker rmi sql_development && \
+	docker network rm sql_development; }
