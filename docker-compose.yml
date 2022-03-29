@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  development:
+    container_name: "sql_development"
+    privileged: true
+    build:
+      context: .
+      dockerfile: ./docker/development.Dockerfile
+    volumes:
+      - .:/code
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.bashrc:/root/.bashrc:ro
+    networks:
+      - sql_development
+  
+  mysql:
+    container_name: mysql
+    image: "mysql:5.7"
+    volumes:
+      - mydata:/var/lib/mysql
+    networks:
+      - sql_development
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: test_db
+  
+  postgres:
+    container_name: postgres
+    image: "postgres:14.2-alpine"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sql_development
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: test_db
+  
+volumes:
+  mydata:
+    name: mydata
+  pgdata:
+    name: pgdata
+
+networks:
+  sql_development:
+    driver: bridge
+    name: sql_development
